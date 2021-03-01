@@ -44,3 +44,14 @@ button.on("click", function () {
         tbody.append("tr").append("td").text("No data found for this date.... Please try to search between 1/1/2010 -> 1/13/2010");
     }
 });
+
+var buttonReset = d3.select("#reset-btn");
+// Tell event listener what to do 
+buttonReset.on("click", function () {
+    // Empty table if already populated
+    tbody.html("");
+    // Reload entire table
+    loadData(tableData);
+    // Show in console number of sightings
+    console.log(`The total number of sightings currently in the database: ${data.length}`);
+});

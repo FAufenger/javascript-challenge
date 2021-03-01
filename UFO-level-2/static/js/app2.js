@@ -53,24 +53,30 @@ buttonFilter.on("click", function () {
         }
     }
     var possibleSearchList = [inputDateValue, inputCityValue, inputStateValue, inputCountryValue, inputShapeValue];
+    
     for (i = 0; i < possibleSearchList.length; i++) {
-        recordSearchLog(possibleSearchList)
+        recordSearchLog(possibleSearchList);
     }
  
-    // Filter Data with corresponding data to input value
-    // || operator adds all filtered values together. Does not filter both within.
-    // var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
-    //                                                      recordedEvent.city === inputCityValue ||
-    //                                                      recordedEvent.state === inputStateValue ||
-    //                                                      recordedEvent.country === inputCountryValue ||
-    //                                                      recordedEvent.shape === inputShapeValue);
+    // // Filter Data with corresponding data to input value
+    // // || operator adds all filtered values together. Does not filter both within.
+    var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
+                                                         recordedEvent.city === inputCityValue ||
+                                                         recordedEvent.state === inputStateValue ||
+                                                         recordedEvent.country === inputCountryValue ||
+                                                         recordedEvent.shape === inputShapeValue);
         
-    var filteredData =  tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue &&
-                                                          recordedEvent.city === inputCityValue &&
-                                                          recordedEvent.state === inputStateValue &&
-                                                          recordedEvent.country === inputCountryValue &&
-                                                          recordedEvent.shape === inputShapeValue);
+    
 
+    // // Filter Data with corresponding data to input value
+    // // This && method one must imput all search criterial to have any result
+    // var filteredData =  tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue &&
+    //                                                       recordedEvent.city === inputCityValue &&
+    //                                                       recordedEvent.state === inputStateValue &&
+    //                                                       recordedEvent.country === inputCountryValue &&
+    //                                                       recordedEvent.shape === inputShapeValue);
+
+                                                          
 
     //console.log(filteredData);
 
