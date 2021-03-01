@@ -60,28 +60,42 @@ buttonFilter.on("click", function () {
  
     // // Filter Data with corresponding data to input value
     // // || operator adds all filtered values together. Does not filter both within.
-    var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
-                                                         recordedEvent.city === inputCityValue ||
-                                                         recordedEvent.state === inputStateValue ||
-                                                         recordedEvent.country === inputCountryValue ||
-                                                         recordedEvent.shape === inputShapeValue);
+    // var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
+    //                                                      recordedEvent.city === inputCityValue ||
+    //                                                      recordedEvent.state === inputStateValue ||
+    //                                                      recordedEvent.country === inputCountryValue ||
+    //                                                      recordedEvent.shape === inputShapeValue);
         
     
 
     // // Filter Data with corresponding data to input value
-    // // This && method one must imput all search criterial to have any result
+    // // This && method one must enter ALL search criterial to have any result
     // var filteredData =  tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue &&
     //                                                       recordedEvent.city === inputCityValue &&
     //                                                       recordedEvent.state === inputStateValue &&
     //                                                       recordedEvent.country === inputCountryValue &&
     //                                                       recordedEvent.shape === inputShapeValue);
 
-                                                          
+    // Filter Data with corresponding data to input value
+    var selectedFilters = {
+        datetime: [inputDateValue], 
+        city: [inputCityValue],
+        state: [inputStateValue], 
+        country: [inputCountryValue], 
+        shape: [inputShapeValue]
+    };
+
+    filterArr = Object.values(selectedFilters).flat();
+
+    var filteredData = tableData.filter(({filters}) => {
+        var objFilters = Object.values(filters).flat();
+        return filterArr.every(val => objFilters.includes(val));
+    })
 
     //console.log(filteredData);
 
     loadData(filteredData);
-    //Show in console date tried and number of sightings
+    //Show in console searched criteria and corresponding number of sightings
     console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
     // If functuon to help error processsing and give info to user
     if (filteredData.length != 0) {
