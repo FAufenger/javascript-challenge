@@ -46,19 +46,18 @@ buttonFilter.on("click", function () {
     var inputShapeElement = d3.select("#shapeType");
     var inputShapeValue = inputShapeElement.property("value");
 
-    // Consle log check variable inputs functioning
-    var recordSearchLog = (searchCriteria) => {
-        if (searchCriteria != "") {
-            console.log(`Search Criteria: ${searchCriteria}`);}
+    // Console log searched variable input(s)
+    function recordSearchLog(searchCriteria) {
+        if (searchCriteria !== "") {
+            console.log(`User selected search value(s): ${searchCriteria}`);
+        }
     }
-    recordSearchLog(inputDateValue);
-    recordSearchLog(inputCityValue);
-    recordSearchLog(inputStateValue);
-    recordSearchLog(inputCountryValue);
-    recordSearchLog(inputShapeValue);
-
-    // Filter Data with datetime equal to input value
-  
+    var possibleSearchList = [inputDateValue, inputCityValue, inputStateValue, inputCountryValue, inputShapeValue];
+    for (i = 0; i < possibleSearchList.length; i++) {
+        recordSearchLog(possibleSearchList)
+    }
+ 
+    // Filter Data with corresponding data to input value
     var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
                                                          recordedEvent.city === inputCityValue ||
                                                          recordedEvent.state === inputStateValue ||
@@ -66,16 +65,17 @@ buttonFilter.on("click", function () {
                                                          recordedEvent.shape === inputShapeValue);
         
 
-    console.log(filteredData);
+    //console.log(filteredData);
+
     loadData(filteredData);
-        // Show in console date tried and number of sightings
-        // console.log(`The total number of sightings on ${inputDateValue} is: ${filteredData.length}`);
-        // // If functuon to help error processsing and give info to user
-        // if (filteredData.length != 0) {
-        //     loadData(filteredData);
-        // } else {
-        //     tbody.append("tr").append("td").text("No data found for this query.... Please try to search again");
-        // }
+    //Show in console date tried and number of sightings
+    console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
+    // If functuon to help error processsing and give info to user
+    if (filteredData.length != 0) {
+        loadData(filteredData);
+    } else {
+        tbody.append("tr").append("td").text("No data found for this query.... Please try to search again");
+    }
 });
 
 var buttonReset = d3.select("#reset-btn");
