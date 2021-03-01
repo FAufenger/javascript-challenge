@@ -41,6 +41,6 @@ button.on("click", function () {
     if (filteredData.length != 0) {
         loadData(filteredData);
     } else {
-        tbody.append("tr").append("td").text("No data found for this date.... Please try to search between 1/1/2010 -> 1/13/2010");
+        tbody.append("tr").append("td").text("No data found for this query.... Please try to search again");
     }
 });
