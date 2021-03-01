@@ -32,19 +32,19 @@ buttonFilter.on("click", function () {
     //  Select the inputs and get the raw HTML nodes
     // Date
     var inputDateElement = d3.select("#datetime");
-    var inputDateValue = inputDateElement.property("value");
+    var inputDateValue = inputDateElement.property("value").toLowerCase();
     // City
     var inputCityElement = d3.select("#cityName");
-    var inputCityValue = inputCityElement.property("value");
+    var inputCityValue = inputCityElement.property("value").toLowerCase();
     // State
     var inputStateElement = d3.select("#stateName");
-    var inputStateValue = inputStateElement.property("value");
+    var inputStateValue = inputStateElement.property("value").toLowerCase();
     // Country
     var inputCountryElement = d3.select("#countryName");
-    var inputCountryValue = inputCountryElement.property("value");
+    var inputCountryValue = inputCountryElement.property("value").toLowerCase();
     // Shape
     var inputShapeElement = d3.select("#shapeType");
-    var inputShapeValue = inputShapeElement.property("value");
+    var inputShapeValue = inputShapeElement.property("value").toLowerCase();
 
     // Console log searched variable input(s)
     function recordSearchLog(searchCriteria) {
@@ -58,6 +58,7 @@ buttonFilter.on("click", function () {
     }
  
     // Filter Data with corresponding data to input value
+    // || operator adds all filtered values together. Does not filter both within.
     var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
                                                          recordedEvent.city === inputCityValue ||
                                                          recordedEvent.state === inputStateValue ||
