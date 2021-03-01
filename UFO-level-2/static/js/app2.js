@@ -59,12 +59,18 @@ buttonFilter.on("click", function () {
  
     // Filter Data with corresponding data to input value
     // || operator adds all filtered values together. Does not filter both within.
-    var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
-                                                         recordedEvent.city === inputCityValue ||
-                                                         recordedEvent.state === inputStateValue ||
-                                                         recordedEvent.country === inputCountryValue ||
-                                                         recordedEvent.shape === inputShapeValue);
+    // var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
+    //                                                      recordedEvent.city === inputCityValue ||
+    //                                                      recordedEvent.state === inputStateValue ||
+    //                                                      recordedEvent.country === inputCountryValue ||
+    //                                                      recordedEvent.shape === inputShapeValue);
         
+    var filteredData =  tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue &&
+                                                          recordedEvent.city === inputCityValue &&
+                                                          recordedEvent.state === inputStateValue &&
+                                                          recordedEvent.country === inputCountryValue &&
+                                                          recordedEvent.shape === inputShapeValue);
+
 
     //console.log(filteredData);
 
