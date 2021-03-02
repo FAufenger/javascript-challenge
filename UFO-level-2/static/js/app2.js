@@ -69,19 +69,38 @@ buttonFilter.on("click", function () {
     var dropdownMenu = d3.select("#selFilterType");
     // Assign the value of the dropdown menu option to a variable
     var filterType = dropdownMenu.property("value");
-    
 
-    // || operator adds all filtered values together (inclusive). Does not filter both within.
-    if (filterType === 'filterInclusive') {    
+
+    // Adds all filtered values together (inclusive). Does not filter within filter.
+    // Set a missingFilter variable for user clarification
+    if (filterType === 'filterInclusive') {
         var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
-                                                         recordedEvent.city === inputCityValue ||
-                                                         recordedEvent.state === inputStateValue ||
-                                                         recordedEvent.country === inputCountryValue ||
-                                                         recordedEvent.shape === inputShapeValue);
-    } 
-    
+            recordedEvent.city === inputCityValue ||
+            recordedEvent.state === inputStateValue ||
+            recordedEvent.country === inputCountryValue ||
+            recordedEvent.shape === inputShapeValue);
+        if ((filteredData.length == 0) && (inputDateValue != "" ||
+            inputCityValue != "" ||
+            inputStateValue != "" ||
+            inputCountryValue != "" ||
+            inputShapeValue != "")) {
+            var missingFilter = 'false';
+
+        } else if ((filteredData.length == 0) && (inputDateValue == "" &&
+            inputCityValue == "" &&
+            inputStateValue == "" &&
+            inputCountryValue == "" &&
+            inputShapeValue == "")) {
+
+        } else {
+            var missingFilter = 'true';
+
+        }
+
+    }
+
     // filter search criteria so that it is exclusive
-    else if(filterType ==='filterExclusive') {
+    else if (filterType === 'filterExclusive') {
         // Define variables - going to filter exclusive inputs 
         var a = inputDateValue;
         var b = inputCityValue;
@@ -181,13 +200,15 @@ buttonFilter.on("click", function () {
             var preFilteredData = C.filter(item => prePreFilteredData.includes(item))
             var filteredData = B.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c != "") && (d != "") && (e != "")) {
-            var filteredData = A.filter(fourth => (B.filter(third => (C.filter(second => (D.filter(first => E.includes(first))).includes(second))).includes(third))).includes(fourth))
+            var prePrePreFilteredData = D.filter(first => E.includes(first))
+            var prePreFilteredData = C.filter(second => prePrePreFilteredData.includes(second))
+            var preFilteredData = B.filter(third => prePreFilteredData.includes(third))
+            var filteredData = A.filter(fourth => preFilteredData.includes(fourth))
         } else {
-            var missingFilter = !missingFilter
+            var missingFilter = "uh-oh"
             var filteredData = ""
         };
     }
-
 
     // // Attempted to use switch inplace if else however ran into trouble/ out of time
     // var a = (filteredDate || filteredCity|| filteredState || filteredCountry || filteredShape)
@@ -207,21 +228,21 @@ buttonFilter.on("click", function () {
     // Show in console searched criteria and corresponding number of sightings
     console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
 
-    // Funny
-    if ((filteredData.length == 0) && (missingFilter === 'false')) {
-        console.log(`Intereting.. For some reason I though there was a sighting within these parameters..`)
-    };
-        
     // If functuon to help error processsing and give info to user
-    if ((filteredData.length != 0)) {
-        loadData(filteredData);
-    } else if (missingFilter === 'true') {
-        tbody.append("tr").append("td").text("Please enter search criteria");
+    if (filteredData.length != 0) {
+        loadData(filteredData)
+    } else if ((filteredData.length == 0) && (missingFilter === 'true')) {
+        tbody.append("tr").append("td").text("Please enter search criteria")
+    } else if ((filteredData.length == 0) && (missingFilter === 'false')) {
+        tbody.append("tr").append("td").text(`Intereting.. For some reason I though there was a sighting within these parameters..`)
+    } else if ((filteredData.length == 0) && (missingFilter === 'uh-oh')) {
+        tbody.append("tr").append("td").text("Something went wrong.. Hopefully the aliens are  kind")
     } else {
-        tbody.append("tr").append("td").text("No data found for this query.... Please try to search again");
+        tbody.append("tr").append("td").text("No data found for this query.... Please try to search again")
     };
 });
 
+// Time to reset
 var buttonReset = d3.select("#reset-btn");
 // Tell event listener what to do 
 buttonReset.on("click", function () {
@@ -231,5 +252,5 @@ buttonReset.on("click", function () {
     loadData(tableData);
     // Show in console number of sightings
     console.log(`The total number of sightings currently in the database: ${data.length}`);
-   });
+});
 
