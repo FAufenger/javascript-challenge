@@ -79,22 +79,22 @@ buttonFilter.on("click", function () {
             recordedEvent.state === inputStateValue ||
             recordedEvent.country === inputCountryValue ||
             recordedEvent.shape === inputShapeValue);
-        if ((filteredData.length == 0) && (inputDateValue != "" ||
+            
+       
+        if ((filteredData.length == 0) && (inputDateValue == "" &&
+            inputCityValue == "" &&
+            inputStateValue == "" &&
+            inputCountryValue == "" &&
+            inputShapeValue == "")) {
+            var missingFilter = 'true';
+        } else if ((filteredData.length == 0) && (inputDateValue != "" ||
             inputCityValue != "" ||
             inputStateValue != "" ||
             inputCountryValue != "" ||
             inputShapeValue != "")) {
             var missingFilter = 'false';
-
-        } else if ((filteredData.length == 0) && (inputDateValue == "" &&
-            inputCityValue == "" &&
-            inputStateValue == "" &&
-            inputCountryValue == "" &&
-            inputShapeValue == "")) {
-
         } else {
-            var missingFilter = 'true';
-
+            var missingFilter = 'uo-oh'
         }
 
     }
@@ -230,7 +230,7 @@ buttonFilter.on("click", function () {
 
     // If functuon to help error processsing and give info to user
     if (filteredData.length != 0) {
-        loadData(filteredData)
+        loadData(filteredData);
     } else if ((filteredData.length == 0) && (missingFilter === 'true')) {
         tbody.append("tr").append("td").text("Please enter search criteria")
     } else if ((filteredData.length == 0) && (missingFilter === 'false')) {
