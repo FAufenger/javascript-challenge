@@ -97,15 +97,18 @@ buttonFilter.on("click", function () {
 
 
         // Pascal's Triangle = n! / (k!(n-k)!) =>  32 possibilities from five possible inputs
-        if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
+        if ((a == "") && (b == "") && (c == "") && (d == "") && (e == "")) {
+            var missingFilter = "true"
+            var filteredData = ""
+        } else if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
             var filteredData = A
-        } else if ((a == "") && (c == "") && (d == "") && (e == "")) {
+        } else if ((a == "") && (b != "") && (c == "") && (d == "") && (e == "")) {
             var filteredData = B
-        } else if ((a == "") && (b == "") && (d == "") && (e == "")) {
+        } else if ((a == "") && (b == "") && (c != "") && (d == "") && (e == "")) {
             var filteredData = C
-        } else if ((a == "") && (b == "") && (c == "") && (e == "")) {
+        } else if ((a == "") && (b == "") && (c == "") && (d != "") && (e == "")) {
             var filteredData = D
-        } else if ((a == "") && (b == "") && (c == "") && (d == "")) {
+        } else if ((a == "") && (b == "") && (c == "") && (d == "") && (e != "")) {
             var filteredData = E
         } else if ((a != "") && (b != "") && (c == "") && (d == "") && (e == "")) {
             var filteredData = A.filter(item => B.includes(item))
@@ -178,14 +181,10 @@ buttonFilter.on("click", function () {
             var preFilteredData = C.filter(item => prePreFilteredData.includes(item))
             var filteredData = B.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c != "") && (d != "") && (e != "")) {
-            var prePrePreFilteredData = D.filter(item => E.includes(item))
-            var prePreFilteredData = C.filter(item => prePrePreFilteredData.includes(item))
-            var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
-            var filteredData = A.filter(item => preFilteredData.includes(item))
-        } else if ((a == "") && (b == "") && (c == "") && (d == "") && (e == "")) {
-            var missingFilter = true
+            var filteredData = A.filter(fourth => (B.filter(third => (C.filter(second => (D.filter(first => E.includes(first))).includes(second))).includes(third))).includes(fourth))
         } else {
             var missingFilter = !missingFilter
+            var filteredData = ""
         };
     }
 
@@ -205,14 +204,19 @@ buttonFilter.on("click", function () {
     // };
 
 
-
-    //Show in console searched criteria and corresponding number of sightings
+    // Show in console searched criteria and corresponding number of sightings
     console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
+
+    // Funny
+    if ((filteredData.length == 0) && (missingFilter === 'false')) {
+        console.log(`Intereting.. For some reason I though there was a sighting within these parameters..`)
+    };
+        
     // If functuon to help error processsing and give info to user
-    if (missingFilter === true) {
-        tbody.append("tr").append("td").text("Please enter search criteria");
-    } else if (filteredData.length != 0) {
+    if ((filteredData.length != 0)) {
         loadData(filteredData);
+    } else if (missingFilter === 'true') {
+        tbody.append("tr").append("td").text("Please enter search criteria");
     } else {
         tbody.append("tr").append("td").text("No data found for this query.... Please try to search again");
     };
@@ -227,5 +231,5 @@ buttonReset.on("click", function () {
     loadData(tableData);
     // Show in console number of sightings
     console.log(`The total number of sightings currently in the database: ${data.length}`);
-});
+   });
 
