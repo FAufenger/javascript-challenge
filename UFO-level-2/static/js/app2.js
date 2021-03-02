@@ -17,7 +17,7 @@ var loadData = (startData) => {
         columns.forEach(function (column) {
             row.append("td").text(ufoSighting[column])
         });
-    });
+    })
 }
 // Show whole table at start (before filtering)
 loadData(tableData);
@@ -101,7 +101,7 @@ buttonFilter.on("click", function () {
             inputShapeValue != "")) {
             var missingFilter = 'false';
         } else {
-            var missingFilter = 'uh-oh'
+            var missingFilter = 'uh-oh';
         }
 
     }
@@ -127,93 +127,93 @@ buttonFilter.on("click", function () {
             var missingFilter = "true";
             var filteredData = "";
         } else if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
-            var filteredData = A
+            var filteredData = A;
         } else if ((a == "") && (b != "") && (c == "") && (d == "") && (e == "")) {
-            var filteredData = B
+            var filteredData = B;
         } else if ((a == "") && (b == "") && (c != "") && (d == "") && (e == "")) {
-            var filteredData = C
+            var filteredData = C;
         } else if ((a == "") && (b == "") && (c == "") && (d != "") && (e == "")) {
-            var filteredData = D
+            var filteredData = D;
         } else if ((a == "") && (b == "") && (c == "") && (d == "") && (e != "")) {
-            var filteredData = E
+            var filteredData = E;
         } else if ((a != "") && (b != "") && (c == "") && (d == "") && (e == "")) {
-            var filteredData = A.filter(item => B.includes(item))
+            var filteredData = A.filter(item => B.includes(item));
         } else if ((a != "") && (b == "") && (c != "") && (d == "") && (e == "")) {
-            var filteredData = A.filter(item => C.includes(item))
+            var filteredData = A.filter(item => C.includes(item));
         } else if ((a != "") && (b == "") && (c == "") && (d != "") && (e == "")) {
-            var filteredData = A.filter(item => D.includes(item))
+            var filteredData = A.filter(item => D.includes(item));
         } else if ((a != "") && (b == "") && (c == "") && (d == "") && (e != "")) {
-            var filteredData = A.filter(item => E.includes(item))
+            var filteredData = A.filter(item => E.includes(item));
         } else if ((a == "") && (b != "") && (c != "") && (d == "") && (e == "")) {
-            var filteredData = B.filter(item => C.includes(item))
+            var filteredData = B.filter(item => C.includes(item));
         } else if ((a == "") && (b != "") && (c == "") && (d != "") && (e == "")) {
-            var filteredData = B.filter(item => D.includes(item))
+            var filteredData = B.filter(item => D.includes(item));
         } else if ((a == "") && (b != "") && (c == "") && (d == "") && (e != "")) {
-            var filteredData = B.filter(item => E.includes(item))
+            var filteredData = B.filter(item => E.includes(item));
         } else if ((a == "") && (b == "") && (c != "") && (d != "") && (e == "")) {
-            var filteredData = C.filter(item => D.includes(item))
+            var filteredData = C.filter(item => D.includes(item));
         } else if ((a == "") && (b == "") && (c != "") && (d == "") && (e != "")) {
-            var filteredData = C.filter(item => E.includes(item))
+            var filteredData = C.filter(item => E.includes(item));
         } else if ((a == "") && (b == "") && (c == "") && (d != "") && (e != "")) {
-            var filteredData = D.filter(item => E.includes(item))
+            var filteredData = D.filter(item => E.includes(item));
         } else if ((a != "") && (b != "") && (c != "") && (d == "") && (e == "")) {
-            var preFilteredData = B.filter(item => C.includes(item))
+            var preFilteredData = B.filter(item => C.includes(item));
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c == "") && (d != "") && (e == "")) {
-            var preFilteredData = B.filter(item => D.includes(item))
+            var preFilteredData = B.filter(item => D.includes(item));
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c == "") && (d == "") && (e != "")) {
-            var preFilteredData = B.filter(item => E.includes(item))
+            var preFilteredData = B.filter(item => E.includes(item));
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b == "") && (c != "") && (d != "") && (e == "")) {
-            var preFilteredData = C.filter(item => D.includes(item))
+            var preFilteredData = C.filter(item => D.includes(item));
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b == "") && (c != "") && (d == "") && (e != "")) {
-            var preFilteredData = C.filter(item => E.includes(item))
+            var preFilteredData = C.filter(item => E.includes(item));
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b == "") && (c == "") && (d != "") && (e != "")) {
-            var preFilteredData = D.filter(item => E.includes(item))
+            var preFilteredData = D.filter(item => E.includes(item));
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a == "") && (b != "") && (c != "") && (d != "") && (e == "")) {
-            var preFilteredData = C.filter(item => D.includes(item))
+            var preFilteredData = C.filter(item => D.includes(item));
             var filteredData = B.filter(item => preFilteredData.includes(item))
         } else if ((a == "") && (b != "") && (c != "") && (d == "") && (e != "")) {
-            var preFilteredData = C.filter(item => E.includes(item))
+            var preFilteredData = C.filter(item => E.includes(item));
             var filteredData = B.filter(item => preFilteredData.includes(item))
         } else if ((a == "") && (b != "") && (c == "") && (d != "") && (e != "")) {
-            var preFilteredData = D.filter(item => E.includes(item))
+            var preFilteredData = D.filter(item => E.includes(item));
             var filteredData = B.filter(item => preFilteredData.includes(item))
         } else if ((a == "") && (b == "") && (c != "") && (d != "") && (e != "")) {
-            var preFilteredData = D.filter(item => E.includes(item))
+            var preFilteredData = D.filter(item => E.includes(item));
             var filteredData = C.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c != "") && (d != "") && (e == "")) {
-            var prePreFilteredData = C.filter(item => D.includes(item))
+            var prePreFilteredData = C.filter(item => D.includes(item));
             var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c != "") && (d == "") && (e != "")) {
-            var prePreFilteredData = C.filter(item => E.includes(item))
+            var prePreFilteredData = C.filter(item => E.includes(item));
             var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
             var filteredData = A.filter(item => preFilteredData.includes(item))
         } else if ((a != "") && (b != "") && (c == "") && (d != "") && (e != "")) {
-            var prePreFilteredData = D.filter(item => E.includes(item))
-            var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
-            var filteredData = A.filter(item => preFilteredData.includes(item))
+            var prePreFilteredData = D.filter(item => E.includes(item));
+            var preFilteredData = B.filter(item => prePreFilteredData.includes(item));
+            var filteredData = A.filter(item => preFilteredData.includes(item));
         } else if ((a != "") && (b == "") && (c != "") && (d != "") && (e != "")) {
-            var prePreFilteredData = D.filter(item => E.includes(item))
-            var preFilteredData = C.filter(item => prePreFilteredData.includes(item))
-            var filteredData = A.filter(item => preFilteredData.includes(item))
+            var prePreFilteredData = D.filter(item => E.includes(item));
+            var preFilteredData = C.filter(item => prePreFilteredData.includes(item));
+            var filteredData = A.filter(item => preFilteredData.includes(item));
         } else if ((a == "") && (b != "") && (c != "") && (d != "") && (e != "")) {
-            var prePreFilteredData = D.filter(item => E.includes(item))
-            var preFilteredData = C.filter(item => prePreFilteredData.includes(item))
-            var filteredData = B.filter(item => preFilteredData.includes(item))
+            var prePreFilteredData = D.filter(item => E.includes(item));
+            var preFilteredData = C.filter(item => prePreFilteredData.includes(item));
+            var filteredData = B.filter(item => preFilteredData.includes(item));
         } else if ((a != "") && (b != "") && (c != "") && (d != "") && (e != "")) {
-            var prePrePreFilteredData = D.filter(first => E.includes(first))
-            var prePreFilteredData = C.filter(second => prePrePreFilteredData.includes(second))
-            var preFilteredData = B.filter(third => prePreFilteredData.includes(third))
-            var filteredData = A.filter(fourth => preFilteredData.includes(fourth))
+            var prePrePreFilteredData = D.filter(first => E.includes(first));
+            var prePreFilteredData = C.filter(second => prePrePreFilteredData.includes(second));
+            var preFilteredData = B.filter(third => prePreFilteredData.includes(third));
+            var filteredData = A.filter(fourth => preFilteredData.includes(fourth));
         } else {
-            var missingFilter = "uh-oh"
-            var filteredData = ""
+            var missingFilter = "uh-oh";
+            var filteredData = "";
         };
     }
 
