@@ -14,7 +14,7 @@ var loadData = (startData) => {
     startData.forEach(function (ufoSighting) {
         //console.log(ufoSighting);
         var row = tbody.append("tr");
-        columns.forEach(function(column) {
+        columns.forEach(function (column) {
             row.append("td").text(ufoSighting[column])
         });
     });
@@ -53,11 +53,11 @@ buttonFilter.on("click", function () {
         }
     }
     var possibleSearchList = [inputDateValue, inputCityValue, inputStateValue, inputCountryValue, inputShapeValue];
-    
+
     for (i = 0; i < possibleSearchList.length; i++) {
         recordSearchLog(possibleSearchList);
     }
- 
+
     // // Filter Data with corresponding data to input value
     // // || operator adds all filtered values together. Does not filter both within.
     // var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
@@ -65,8 +65,8 @@ buttonFilter.on("click", function () {
     //                                                      recordedEvent.state === inputStateValue ||
     //                                                      recordedEvent.country === inputCountryValue ||
     //                                                      recordedEvent.shape === inputShapeValue);
-        
-    
+
+
 
     // // Filter Data with corresponding data to input value
     // // This && method one must enter ALL search criterial to have any result
@@ -76,25 +76,56 @@ buttonFilter.on("click", function () {
     //                                                       recordedEvent.country === inputCountryValue &&
     //                                                       recordedEvent.shape === inputShapeValue);
 
+
     // Filter Data with corresponding data to input value
-    var selectedFilters = {
-        datetime: [inputDateValue], 
-        city: [inputCityValue],
-        state: [inputStateValue], 
-        country: [inputCountryValue], 
-        shape: [inputShapeValue]
+    var filteredDate = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue);
+    var filteredCity = tableData.filter(recordedEvent => recordedEvent.city === inputCityValue);
+    var filteredState = tableData.filter(recordedEvent => recordedEvent.state === inputStateValue);
+    var filteredCountry = tableData.filter(recordedEvent => recordedEvent.country === inputCountryValue);
+    var filteredShape = tableData.filter(recordedEvent => recordedEvent.shape === inputShapeValue);
+
+    // // Pascal's Triangle = n! / (k!(n-k)!) =>  32 possibilities 
+    var functionfilteredData = function(keepLooking) {
+        switch (keepLooking) {
+            case ((filteredCity.length = 0 || inputCityValue != "") &&
+                    + (filteredCity.length = 0 || inputCityValue != "") &&
+                    + (filteredCity.length = 0 || inputCityValue != "") &&
+                    + (filteredCity.length = 0 || inputCityValue != "")):
+                return filteredData = (filteredDate);
+                break; 
+            default:
+                return filteredData = tableData;
+        }
     };
+    var filteredData = functionfilteredData(tableData)
+    // var filteredData = {
+    //     ((filteredDate.length = 0 || inputDateValue != "") && (filteredCity.length = 0 || inputCityValue != "") &&
+    //     (filteredCity.length = 0 || inputCityValue != "") && (filteredCity.length = 0 || inputCityValue != "") &&
+    //     (filteredCity.length = 0 || inputCityValue != "")) :
+    // };
 
-    filterArr = Object.values(selectedFilters).flat();
+    //     var filteredData = filteredDate
+    // } else {
+    //     var filteredData = filteredDate
+    // };
 
-    var filteredData = tableData.filter(({filters}) => {
-        var objFilters = Object.values(filters).flat();
-        return filterArr.every(val => objFilters.includes(val));
-    })
+    // if ((filteredCity.length = 0 || inputCityValue != "") && (filteredCity.length = 0 || inputCityValue != "")) {
+    //     var filteredData = filteredDate.filter(item => filteredCity.includes(item))
+    // } else {
+    //     var filteredData = filteredDate
+    // };
+
+
+
+
+    // if ((filteredCity.length = 0 || inputCityValue != "")) {
+    //     var filteredData = filteredDate.filter(item => filteredCity.includes(item))
+    // } else {
+    //     var filteredData = filteredDate
+    // };
 
     //console.log(filteredData);
 
-    loadData(filteredData);
     //Show in console searched criteria and corresponding number of sightings
     console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
     // If functuon to help error processsing and give info to user
