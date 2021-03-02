@@ -30,7 +30,11 @@
         <div class="col-md-2">
           <aside class="filters">
             <div class="panel panel-default">
-              <div class="panel-heading">Filter Search</div>
+              <div class="panel-heading">Choose how to filter</div>
+              <select id="selFilterType">
+                <option value="filterInclusive">Filter is inclusive</option>
+                <option value="filterExclusive">Filter is exclusive</option>
+              </select>
               <div class="panel-body">
                 <form>
                   <div class="form-group">
@@ -78,6 +82,7 @@
       </div>
     </div>
     <footer class="footer">
+      <p>Check console for more detail</p>
       <span class="bottom">UFO Sightings</span>
     </footer>
   </div>

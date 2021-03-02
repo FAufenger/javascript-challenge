@@ -58,118 +58,139 @@ buttonFilter.on("click", function () {
         recordSearchLog(possibleSearchList);
     }
 
-    // // Filter Data with corresponding data to input value
-    // // || operator adds all filtered values together. Does not filter both within.
-    // var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
-    //                                                      recordedEvent.city === inputCityValue ||
-    //                                                      recordedEvent.state === inputStateValue ||
-    //                                                      recordedEvent.country === inputCountryValue ||
-    //                                                      recordedEvent.shape === inputShapeValue);
-
-
-
-    // // Filter Data with corresponding data to input value
-    // // This && method one must enter ALL search criterial to have any result
-    // var filteredData =  tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue &&
-    //                                                       recordedEvent.city === inputCityValue &&
-    //                                                       recordedEvent.state === inputStateValue &&
-    //                                                       recordedEvent.country === inputCountryValue &&
-    //                                                       recordedEvent.shape === inputShapeValue);
-
-
-   // if ((filteredCity.length = 0 || inputCityValue != "")) {
-    //     var filteredData = filteredDate.filter(item => filteredCity.includes(item))
-    // } else {
-    //     var filteredData = filteredDate
-    // };
-
-
-    // Filter Data with corresponding data to input value
+    // Filter Data with corresponding data to input value for each tag
     var filteredDate = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue);
     var filteredCity = tableData.filter(recordedEvent => recordedEvent.city === inputCityValue);
     var filteredState = tableData.filter(recordedEvent => recordedEvent.state === inputStateValue);
     var filteredCountry = tableData.filter(recordedEvent => recordedEvent.country === inputCountryValue);
     var filteredShape = tableData.filter(recordedEvent => recordedEvent.shape === inputShapeValue);
 
-    // // Pascal's Triangle = n! / (k!(n-k)!) =>  32 possibilities 
+    // Use D3 to select the dropdown menu to have to multiple filter types
+    var dropdownMenu = d3.select("#selFilterType");
+    // Assign the value of the dropdown menu option to a variable
+    var filterType = dropdownMenu.property("value");
+    
 
-    var a = inputDateValue;
-    var b = inputCityValue;
-    var c = inputStateValue;
-    var d = inputCountryValue;
-    var e = inputShapeValue; 
-    var A = filteredDate;
-    var B = filteredCity;
-    var C = filteredState;
-    var D = filteredCountry;
-    var E = filteredShape; 
-    var missingFilter = 'false';
-
-    if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
-        var filteredData = A
-    } else if((a == "") && (c == "") && (d == "") && (e== "")) {
-        var filteredData = B
-    } else if((a == "") && (b == "") && (d == "") && (e == "")) {
-        var filteredData = C
-    } else if((a == "") && (b == "") && (c == "") && (e == "")) {
-        var filteredData = D
-    } else if((a == "") && (b == "") && (c == "") && (d == "")) {
-        var filteredData = E
-    } else if((a != "") && (b != "")  && (c == "") && (d == "") && (e == "")) {
-        var filteredData = A.filter(item => B.includes(item))
-    } else if((a != "") && (b == "")  && (c != "") && (d == "") && (e == "")) {
-        var filteredData = A.filter(item => C.includes(item))
-    } else if((a != "") && (b == "")  && (c == "") && (d != "") && (e == "")) {
-        var filteredData = A.filter(item => D.includes(item))
-    } else if((a != "") && (b == "")  && (c == "") && (d == "") && (e != "")) {
-        var filteredData = A.filter(item => E.includes(item))
-    } else if((a == "") && (b != "")  && (c != "") && (d == "") && (e == "")) {
-        var filteredData = B.filter(item => C.includes(item))
-    } else if((a == "") && (b != "")  && (c == "") && (d != "") && (e == "")) {
-        var filteredData = B.filter(item => D.includes(item))
-    } else if((a == "") && (b != "")  && (c == "") && (d == "") && (e != "")) {
-        var filteredData = B.filter(item => E.includes(item))
-    } else if((a == "") && (b == "")  && (c != "") && (d != "") && (e == "")) {
-        var filteredData = C.filter(item => D.includes(item))
-    } else if((a == "") && (b == "")  && (c != "") && (d == "") && (e != "")) {
-        var filteredData = C.filter(item => E.includes(item))
-    } else if((a == "") && (b == "")  && (c == "") && (d != "") && (e != "")) {
-        var filteredData = D.filter(item => E.includes(item))
-    } else if((a != "") && (b != "")  && (c != "") && (d == "") && (e == "")) {
-        var preFilteredData = B.filter(item => C.includes(item))
-        var filteredData = A.filter(item => preFilteredData.includes(item))
-    } else if((a != "") && (b != "")  && (c == "") && (d != "") && (e == "")) {
-        var preFilteredData = B.filter(item => D.includes(item))
-        var filteredData = A.filter(item => preFilteredData.includes(item))
-    } else if((a != "") && (b != "")  && (c == "") && (d == "") && (e != "")) {
-        var preFilteredData = B.filter(item => E.includes(item))
-        var filteredData = A.filter(item => preFilteredData.includes(item))
-    } else if((a != "") && (b == "")  && (c != "") && (d != "") && (e == "")) {
-        var preFilteredData = C.filter(item => D.includes(item))
-        var filteredData = A.filter(item => preFilteredData.includes(item))
-    } else if((a != "") && (b == "")  && (c != "") && (d == "") && (e != "")) {
-        var preFilteredData = C.filter(item => E.includes(item))
-        var filteredData = A.filter(item => preFilteredData.includes(item))
-    } else if((a != "") && (b == "")  && (c == "") && (d != "") && (e != "")) {
-        var preFilteredData = D.filter(item => E.includes(item))
-        var filteredData = A.filter(item => preFilteredData.includes(item))
+    // || operator adds all filtered values together (inclusive). Does not filter both within.
+    if (filterType === 'filterInclusive') {    
+        var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
+                                                         recordedEvent.city === inputCityValue ||
+                                                         recordedEvent.state === inputStateValue ||
+                                                         recordedEvent.country === inputCountryValue ||
+                                                         recordedEvent.shape === inputShapeValue);
+    } 
+    
+    // filter search criteria so that it is exclusive
+    else if(filterType ==='filterExclusive') {
+        // Define variables - going to filter exclusive inputs 
+        var a = inputDateValue;
+        var b = inputCityValue;
+        var c = inputStateValue;
+        var d = inputCountryValue;
+        var e = inputShapeValue;
+        var A = filteredDate;
+        var B = filteredCity;
+        var C = filteredState;
+        var D = filteredCountry;
+        var E = filteredShape;
+        var missingFilter = 'false';
 
 
+        // Pascal's Triangle = n! / (k!(n-k)!) =>  32 possibilities from five possible inputs
+        if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
+            var filteredData = A
+        } else if ((a == "") && (c == "") && (d == "") && (e == "")) {
+            var filteredData = B
+        } else if ((a == "") && (b == "") && (d == "") && (e == "")) {
+            var filteredData = C
+        } else if ((a == "") && (b == "") && (c == "") && (e == "")) {
+            var filteredData = D
+        } else if ((a == "") && (b == "") && (c == "") && (d == "")) {
+            var filteredData = E
+        } else if ((a != "") && (b != "") && (c == "") && (d == "") && (e == "")) {
+            var filteredData = A.filter(item => B.includes(item))
+        } else if ((a != "") && (b == "") && (c != "") && (d == "") && (e == "")) {
+            var filteredData = A.filter(item => C.includes(item))
+        } else if ((a != "") && (b == "") && (c == "") && (d != "") && (e == "")) {
+            var filteredData = A.filter(item => D.includes(item))
+        } else if ((a != "") && (b == "") && (c == "") && (d == "") && (e != "")) {
+            var filteredData = A.filter(item => E.includes(item))
+        } else if ((a == "") && (b != "") && (c != "") && (d == "") && (e == "")) {
+            var filteredData = B.filter(item => C.includes(item))
+        } else if ((a == "") && (b != "") && (c == "") && (d != "") && (e == "")) {
+            var filteredData = B.filter(item => D.includes(item))
+        } else if ((a == "") && (b != "") && (c == "") && (d == "") && (e != "")) {
+            var filteredData = B.filter(item => E.includes(item))
+        } else if ((a == "") && (b == "") && (c != "") && (d != "") && (e == "")) {
+            var filteredData = C.filter(item => D.includes(item))
+        } else if ((a == "") && (b == "") && (c != "") && (d == "") && (e != "")) {
+            var filteredData = C.filter(item => E.includes(item))
+        } else if ((a == "") && (b == "") && (c == "") && (d != "") && (e != "")) {
+            var filteredData = D.filter(item => E.includes(item))
+        } else if ((a != "") && (b != "") && (c != "") && (d == "") && (e == "")) {
+            var preFilteredData = B.filter(item => C.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b != "") && (c == "") && (d != "") && (e == "")) {
+            var preFilteredData = B.filter(item => D.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b != "") && (c == "") && (d == "") && (e != "")) {
+            var preFilteredData = B.filter(item => E.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b == "") && (c != "") && (d != "") && (e == "")) {
+            var preFilteredData = C.filter(item => D.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b == "") && (c != "") && (d == "") && (e != "")) {
+            var preFilteredData = C.filter(item => E.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b == "") && (c == "") && (d != "") && (e != "")) {
+            var preFilteredData = D.filter(item => E.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a == "") && (b != "") && (c != "") && (d != "") && (e == "")) {
+            var preFilteredData = C.filter(item => D.includes(item))
+            var filteredData = B.filter(item => preFilteredData.includes(item))
+        } else if ((a == "") && (b != "") && (c != "") && (d == "") && (e != "")) {
+            var preFilteredData = C.filter(item => E.includes(item))
+            var filteredData = B.filter(item => preFilteredData.includes(item))
+        } else if ((a == "") && (b != "") && (c == "") && (d != "") && (e != "")) {
+            var preFilteredData = D.filter(item => E.includes(item))
+            var filteredData = B.filter(item => preFilteredData.includes(item))
+        } else if ((a == "") && (b == "") && (c != "") && (d != "") && (e != "")) {
+            var preFilteredData = D.filter(item => E.includes(item))
+            var filteredData = C.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b != "") && (c != "") && (d != "") && (e == "")) {
+            var prePreFilteredData = C.filter(item => D.includes(item))
+            var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b != "") && (c != "") && (d == "") && (e != "")) {
+            var prePreFilteredData = C.filter(item => E.includes(item))
+            var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b != "") && (c == "") && (d != "") && (e != "")) {
+            var prePreFilteredData = D.filter(item => E.includes(item))
+            var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b == "") && (c != "") && (d != "") && (e != "")) {
+            var prePreFilteredData = D.filter(item => E.includes(item))
+            var preFilteredData = C.filter(item => prePreFilteredData.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a == "") && (b != "") && (c != "") && (d != "") && (e != "")) {
+            var prePreFilteredData = D.filter(item => E.includes(item))
+            var preFilteredData = C.filter(item => prePreFilteredData.includes(item))
+            var filteredData = B.filter(item => preFilteredData.includes(item))
+        } else if ((a != "") && (b != "") && (c != "") && (d != "") && (e != "")) {
+            var prePrePreFilteredData = D.filter(item => E.includes(item))
+            var prePreFilteredData = C.filter(item => prePrePreFilteredData.includes(item))
+            var preFilteredData = B.filter(item => prePreFilteredData.includes(item))
+            var filteredData = A.filter(item => preFilteredData.includes(item))
+        } else if ((a == "") && (b == "") && (c == "") && (d == "") && (e == "")) {
+            var missingFilter = true
+        } else {
+            var missingFilter = !missingFilter
+        };
+    }
 
 
-    } else if((a == "") && (b == "") && (c == "") && (d == "") && (e == "")) {
-        var missingFilter = true
-    } else{
-        var missingFilter = !missingFilter
-    };
-
-
-
-    // ((filteredCity.length = 0 || inputCityValue != "") &&
-    //              + (filteredState.length = 0 || inputStateValue != "") &&
-    //              + (filteredCountry.length = 0 || inputCountryValue != "") &&
-    //              + (filteredShape.length = 0 || inputShapeValue != ""))
-    /////////////////////////////////////////////// Switch ///////////////////////////////////
+    // // Attempted to use switch inplace if else however ran into trouble/ out of time
     // var a = (filteredDate || filteredCity|| filteredState || filteredCountry || filteredShape)
 
     // switch (a) {
@@ -182,14 +203,13 @@ buttonFilter.on("click", function () {
     //     default:
     //         return filteredData = tableData;
     // };
- 
 
-    //console.log(filteredData);
+
 
     //Show in console searched criteria and corresponding number of sightings
     console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
     // If functuon to help error processsing and give info to user
-    if  (missingFilter === true) {
+    if (missingFilter === true) {
         tbody.append("tr").append("td").text("Please enter search criteria");
     } else if (filteredData.length != 0) {
         loadData(filteredData);
