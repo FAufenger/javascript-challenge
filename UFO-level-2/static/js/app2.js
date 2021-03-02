@@ -26,6 +26,9 @@ loadData(tableData);
 var buttonFilter = d3.select("#filter-btn");
 // Tell event listener what to do 
 buttonFilter.on("click", function () {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+
     // Empty table if already populated
     tbody.html("");
 
@@ -74,6 +77,10 @@ buttonFilter.on("click", function () {
     // Adds all filtered values together (inclusive). Does not filter within filter.
     // Set a missingFilter variable for user clarification
     if (filterType === 'filterInclusive') {
+
+        // Prevent the page from refreshing
+        d3.event.preventDefault();
+
         var filteredData = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue ||
             recordedEvent.city === inputCityValue ||
             recordedEvent.state === inputStateValue ||
@@ -94,7 +101,7 @@ buttonFilter.on("click", function () {
             inputShapeValue != "")) {
             var missingFilter = 'false';
         } else {
-            var missingFilter = 'uo-oh'
+            var missingFilter = 'uh-oh'
         }
 
     }
@@ -117,8 +124,8 @@ buttonFilter.on("click", function () {
 
         // Pascal's Triangle = n! / (k!(n-k)!) =>  32 possibilities from five possible inputs
         if ((a == "") && (b == "") && (c == "") && (d == "") && (e == "")) {
-            var missingFilter = "true"
-            var filteredData = ""
+            var missingFilter = "true";
+            var filteredData = "";
         } else if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
             var filteredData = A
         } else if ((a == "") && (b != "") && (c == "") && (d == "") && (e == "")) {

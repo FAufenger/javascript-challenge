@@ -26,6 +26,8 @@ loadData(tableData);
 var button = d3.select("#filter-btn");
 // Tell event listener what to do 
 button.on("click", function () {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
     // Empty table if already populated
     tbody.html("");
     //  Select the input date get the raw HTML nodes
@@ -48,6 +50,8 @@ button.on("click", function () {
 var buttonReset = d3.select("#reset-btn");
 // Tell event listener what to do 
 buttonReset.on("click", function () {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
     // Empty table if already populated
     tbody.html("");
     // Reload entire table
