@@ -49,7 +49,7 @@ buttonFilter.on("click", function () {
     // Console log searched variable input(s)
     function recordSearchLog(searchCriteria) {
         if (searchCriteria !== "") {
-            console.log(`User selected search value(s): ${searchCriteria}`);
+            console.log(`Total user selected search value(s): ${searchCriteria}`);
         }
     }
     var possibleSearchList = [inputDateValue, inputCityValue, inputStateValue, inputCountryValue, inputShapeValue];
@@ -77,6 +77,13 @@ buttonFilter.on("click", function () {
     //                                                       recordedEvent.shape === inputShapeValue);
 
 
+   // if ((filteredCity.length = 0 || inputCityValue != "")) {
+    //     var filteredData = filteredDate.filter(item => filteredCity.includes(item))
+    // } else {
+    //     var filteredData = filteredDate
+    // };
+
+
     // Filter Data with corresponding data to input value
     var filteredDate = tableData.filter(recordedEvent => recordedEvent.datetime === inputDateValue);
     var filteredCity = tableData.filter(recordedEvent => recordedEvent.city === inputCityValue);
@@ -85,55 +92,110 @@ buttonFilter.on("click", function () {
     var filteredShape = tableData.filter(recordedEvent => recordedEvent.shape === inputShapeValue);
 
     // // Pascal's Triangle = n! / (k!(n-k)!) =>  32 possibilities 
-    var functionfilteredData = function(keepLooking) {
-        switch (keepLooking) {
-            case ((filteredCity.length = 0 || inputCityValue != "") &&
-                    + (filteredCity.length = 0 || inputCityValue != "") &&
-                    + (filteredCity.length = 0 || inputCityValue != "") &&
-                    + (filteredCity.length = 0 || inputCityValue != "")):
-                return filteredData = (filteredDate);
-                break; 
-            default:
-                return filteredData = tableData;
-        }
+
+    var a = inputDateValue;
+    var b = inputCityValue;
+    var c = inputStateValue;
+    var d = inputCountryValue;
+    var e = inputShapeValue; 
+    var A = filteredDate;
+    var B = filteredCity;
+    var C = filteredState;
+    var D = filteredCountry;
+    var E = filteredShape; 
+    var missingFilter = 'false';
+
+    if ((a != "") && (b == "") && (c == "") && (d == "") && (e == "")) {
+        var filteredData = A
+    } else if((a == "") && (c == "") && (d == "") && (e== "")) {
+        var filteredData = B
+    } else if((a == "") && (b == "") && (d == "") && (e == "")) {
+        var filteredData = C
+    } else if((a == "") && (b == "") && (c == "") && (e == "")) {
+        var filteredData = D
+    } else if((a == "") && (b == "") && (c == "") && (d == "")) {
+        var filteredData = E
+    } else if((a != "") && (b != "")  && (c == "") && (d == "") && (e == "")) {
+        var filteredData = A.filter(item => B.includes(item))
+    } else if((a != "") && (b == "")  && (c != "") && (d == "") && (e == "")) {
+        var filteredData = A.filter(item => C.includes(item))
+    } else if((a != "") && (b == "")  && (c == "") && (d != "") && (e == "")) {
+        var filteredData = A.filter(item => D.includes(item))
+    } else if((a != "") && (b == "")  && (c == "") && (d == "") && (e != "")) {
+        var filteredData = A.filter(item => E.includes(item))
+    } else if((a == "") && (b != "")  && (c != "") && (d == "") && (e == "")) {
+        var filteredData = B.filter(item => C.includes(item))
+    } else if((a == "") && (b != "")  && (c == "") && (d != "") && (e == "")) {
+        var filteredData = B.filter(item => D.includes(item))
+    } else if((a == "") && (b != "")  && (c == "") && (d == "") && (e != "")) {
+        var filteredData = B.filter(item => E.includes(item))
+    } else if((a == "") && (b == "")  && (c != "") && (d != "") && (e == "")) {
+        var filteredData = C.filter(item => D.includes(item))
+    } else if((a == "") && (b == "")  && (c != "") && (d == "") && (e != "")) {
+        var filteredData = C.filter(item => E.includes(item))
+    } else if((a == "") && (b == "")  && (c == "") && (d != "") && (e != "")) {
+        var filteredData = D.filter(item => E.includes(item))
+    } else if((a != "") && (b != "")  && (c != "") && (d == "") && (e == "")) {
+        var preFilteredData = B.filter(item => C.includes(item))
+        var filteredData = A.filter(item => preFilteredData.includes(item))
+    } else if((a != "") && (b != "")  && (c == "") && (d != "") && (e == "")) {
+        var preFilteredData = B.filter(item => D.includes(item))
+        var filteredData = A.filter(item => preFilteredData.includes(item))
+    } else if((a != "") && (b != "")  && (c == "") && (d == "") && (e != "")) {
+        var preFilteredData = B.filter(item => E.includes(item))
+        var filteredData = A.filter(item => preFilteredData.includes(item))
+    } else if((a != "") && (b == "")  && (c != "") && (d != "") && (e == "")) {
+        var preFilteredData = C.filter(item => D.includes(item))
+        var filteredData = A.filter(item => preFilteredData.includes(item))
+    } else if((a != "") && (b == "")  && (c != "") && (d == "") && (e != "")) {
+        var preFilteredData = C.filter(item => E.includes(item))
+        var filteredData = A.filter(item => preFilteredData.includes(item))
+    } else if((a != "") && (b == "")  && (c == "") && (d != "") && (e != "")) {
+        var preFilteredData = D.filter(item => E.includes(item))
+        var filteredData = A.filter(item => preFilteredData.includes(item))
+
+
+
+
+    } else if((a == "") && (b == "") && (c == "") && (d == "") && (e == "")) {
+        var missingFilter = true
+    } else{
+        var missingFilter = !missingFilter
     };
-    var filteredData = functionfilteredData(tableData)
-    // var filteredData = {
-    //     ((filteredDate.length = 0 || inputDateValue != "") && (filteredCity.length = 0 || inputCityValue != "") &&
-    //     (filteredCity.length = 0 || inputCityValue != "") && (filteredCity.length = 0 || inputCityValue != "") &&
-    //     (filteredCity.length = 0 || inputCityValue != "")) :
+
+
+
+    // ((filteredCity.length = 0 || inputCityValue != "") &&
+    //              + (filteredState.length = 0 || inputStateValue != "") &&
+    //              + (filteredCountry.length = 0 || inputCountryValue != "") &&
+    //              + (filteredShape.length = 0 || inputShapeValue != ""))
+    /////////////////////////////////////////////// Switch ///////////////////////////////////
+    // var a = (filteredDate || filteredCity|| filteredState || filteredCountry || filteredShape)
+
+    // switch (a) {
+    //     case ((filteredCity.length = 0 || inputCityValue != "") &&
+    //             + (filteredCity.length = 0 || inputCityValue != "") &&
+    //             + (filteredCity.length = 0 || inputCityValue != "") &&
+    //             + (filteredCity.length = 0 || inputCityValue != "")):
+    //         var filteredData = filteredDate;
+    //         break;
+    //     default:
+    //         return filteredData = tableData;
     // };
-
-    //     var filteredData = filteredDate
-    // } else {
-    //     var filteredData = filteredDate
-    // };
-
-    // if ((filteredCity.length = 0 || inputCityValue != "") && (filteredCity.length = 0 || inputCityValue != "")) {
-    //     var filteredData = filteredDate.filter(item => filteredCity.includes(item))
-    // } else {
-    //     var filteredData = filteredDate
-    // };
-
-
-
-
-    // if ((filteredCity.length = 0 || inputCityValue != "")) {
-    //     var filteredData = filteredDate.filter(item => filteredCity.includes(item))
-    // } else {
-    //     var filteredData = filteredDate
-    // };
+ 
 
     //console.log(filteredData);
 
     //Show in console searched criteria and corresponding number of sightings
     console.log(`The total number of sightings per search criteria is: ${filteredData.length}`);
     // If functuon to help error processsing and give info to user
-    if (filteredData.length != 0) {
+    if  (missingFilter === true) {
+        tbody.append("tr").append("td").text("Please enter search criteria");
+    } else if (filteredData.length != 0) {
         loadData(filteredData);
     } else {
         tbody.append("tr").append("td").text("No data found for this query.... Please try to search again");
-    }
+    };
 });
 
 var buttonReset = d3.select("#reset-btn");
